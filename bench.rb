@@ -20,7 +20,8 @@ File.open(File.join(File.dirname($0), "test.json")) do |file|
   test_hash = JSON.load(file)
 end
 
-ns = [0,1,2,3,4,5,10,100,1000,10000].concat (30 .. 60).map{|x| (2 ** (x / 2.0)).to_i}
+ns = [0, 1, 2, 3, 4, 5, 10, 100, 1000, 10000]
+ns += (30 .. 60).map{|x| (2 ** (x / 2.0)).to_i}
 
 
 ns.each do |n|
