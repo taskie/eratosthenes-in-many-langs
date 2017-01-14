@@ -11,3 +11,13 @@ all: $(DIRECTORIES)
 
 $(DIRECTORIES):
 	$(MAKE) -C $@
+
+clean:
+	for dir in $(DIRECTORIES); do \
+		$(MAKE) -C $$dir clean; \
+	done
+
+clobber:
+	for dir in $(DIRECTORIES); do \
+		$(MAKE) -C $$dir clobber; \
+	done

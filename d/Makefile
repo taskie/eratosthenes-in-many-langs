@@ -6,10 +6,10 @@ BINARIES=prime
 all: $(BINARIES)
 
 clean:
-	\rm $(OBJECTS)
+	-\rm $(OBJECTS)
 
 clobber: clean
-	\rm $(BINARIES)
+	-\rm $(BINARIES)
 
 bench: $(BINARIES)
 	for binary in $(BINARIES) ; do \

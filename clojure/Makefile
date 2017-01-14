@@ -5,7 +5,7 @@ all: $(BINARIES)
 clean:
 
 clobber: clean
-	-\rm $(BINARIES)
+	-\rm -rf classes/
 
 bench: $(BINARIES)
 	../bench.rb "java -cp classes:/usr/share/clojure/clojure.jar Prime" | tee Prime.class.log
