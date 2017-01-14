@@ -1,16 +1,29 @@
-COMPILER=javac
-OPTIONS=-O
-BINARIES=Prime.class
+COMPILER := javac
+OPTIONS := -O
+BINARIES := Prime.class
+LOGS := $(addsuffix .log, $(BINARIES))
+
+.PHONY: all clean cleanlog clobber bench test
 
 all: $(BINARIES)
 
 clean:
 
+cleanlog:
+	-\rm $(LOGS)
+
 clobber: clean
 	-\rm $(BINARIES)
 
-bench: $(BINARIES)
-	../bench.rb "java Prime" | tee Prime.class.log
+bench: $(LOGS)
 
-Prime.class: Prime.java
+%.log: %
+	../bench.rb "java $(basename $<)" | tee $@
+
+test: $(patsubst %.log,%.test,$(LOGS))
+
+%.test: %
+	../bench.rb -t "java $(basename $<)"
+
+%.class: %.java
 	$(COMPILER) $(OPTIONS) $+

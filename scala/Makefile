@@ -1,18 +1,30 @@
-COMPILER=scalac
-OPTIONS=-opt:_
-OBJECTS=Prime$$.class
-BINARIES=Prime.class
+COMPILER := scalac
+OPTIONS := -opt:_
+BINARIES := Prime.class
+LOGS := $(addsuffix .log, $(BINARIES))
+
+.PHONY: all clean cleanlog clobber bench test
 
 all: $(BINARIES)
 
 clean:
-	-\rm $(OBJECTS)
+	-\rm $(patsubst %.class,%$$.class,$(BINARIES))
+
+cleanlog:
+	-\rm $(LOGS)
 
 clobber: clean
 	-\rm $(BINARIES)
 
-bench: $(BINARIES)
-	../bench.rb "scala Prime" | tee Prime.class.log
+bench: $(LOGS)
 
-Prime.class: Prime.scala
+%.log: %
+	../bench.rb "scala $(basename $<)" | tee $@
+
+test: $(addsuffix .test, $(BINARIES))
+
+%.test: %
+	../bench.rb -t "scala $(basename $<)"
+
+%.class: %.scala
 	$(COMPILER) $(OPTIONS) $+

@@ -1,11 +1,8 @@
-COMPILER=gcc
-OPTIONS=-Wall -O3 -march=native -march=native -lm
-BINARIES=prime prime_bitv prime_bitv_64 prime_bitv_sse4 prime_bitv_sse4_64
 DIRECTORIES := c c\# c++ clojure commonlisp d fortran go haskell java \
-	javascript julia lua nim objective-c ocaml perl php python ruby rust \
-	scala scheme squirrel swift
+	javascript julia lua nim ocaml perl php python ruby rust scala \
+	scheme squirrel
 
-.PHONY: all clean clobber $(DIRECTORIES)
+.PHONY: all clean cleanlog clobber test $(DIRECTORIES)
 
 all: $(DIRECTORIES)
 
@@ -13,11 +10,16 @@ $(DIRECTORIES):
 	$(MAKE) -C $@
 
 clean:
-	for dir in $(DIRECTORIES); do \
-		$(MAKE) -C $$dir clean; \
-	done
+	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) clean;)
+
+cleanlog:
+	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) cleanlog;)
 
 clobber:
-	for dir in $(DIRECTORIES); do \
-		$(MAKE) -C $$dir clobber; \
-	done
+	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) clobber;)
+
+test:
+	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) test;)
+
+bench:
+	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) bench;)

@@ -1,12 +1,24 @@
-SCRIPTS=prime.scm
+PROCESSOR := gosh
+SCRIPTS := prime.scm
+LOGS := $(addsuffix .log, $(SCRIPTS))
+
+.PHONY: all clean cleanlog clobber bench test
 
 all:
 
 clean:
 
+cleanlog:
+	-\rm $(LOGS)
+
 clobber: clean
 
-bench:
-	for script in $(SCRIPTS) ; do \
-		../bench.rb "gosh $$script" | tee $$script.log; \
-	done
+bench: $(LOGS)
+
+%.log: %
+	../bench.rb "$(PROCESSOR) $<" | tee $@
+
+test: $(patsubst %.log,%.test,$(LOGS))
+
+%.test: %
+	../bench.rb -t "$(PROCESSOR) $<"

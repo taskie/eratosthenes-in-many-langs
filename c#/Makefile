@@ -1,21 +1,29 @@
-COMPILER=mcs
-OPTIONS=-optimize+
-BINARIES=Prime.exe PrimeLinq.exe
+COMPILER := mcs
+OPTIONS := -optimize+
+BINARIES := Prime.exe PrimeLinq.exe
+LOGS := $(addsuffix .log, $(BINARIES))
+
+.PHONY: all clean cleanlog clobber bench test
 
 all: $(BINARIES)
 
 clean:
 
+cleanlog:
+	-\rm $(LOGS)
+
 clobber: clean
 	-\rm $(BINARIES)
 
-bench: $(BINARIES)
-	for binary in $+; do \
-		../bench.rb "mono $$binary" | tee $$binary.log; \
-	done
+bench: $(LOGS)
 
-Prime.exe: Prime.cs
-	$(COMPILER) $(OPTIONS) $+
+%.log: %
+	../bench.rb "mono $<" | tee $@
 
-PrimeLinq.exe: PrimeLinq.cs
-	$(COMPILER) $(OPTIONS) $+
+test: $(patsubst %.log,%.test,$(LOGS))
+
+%.test: %
+	../bench.rb -t "mono $<"
+
+%.exe: %.cs
+	$(COMPILER) $(OPTIONS) $<

@@ -1,12 +1,24 @@
-SCRIPTS=prime.py prime_numpy.py
+PROCESSOR := python
+SCRIPTS := prime.py prime_numpy.py
+LOGS := $(addsuffix .log, $(SCRIPTS))
+
+.PHONY: all clean cleanlog clobber bench test
 
 all:
 
 clean:
 
+cleanlog:
+	-\rm $(LOGS)
+
 clobber: clean
 
-bench:
-	for script in $(SCRIPTS) ; do \
-		../bench.rb "python $$script" | tee $$script.log; \
-	done
+bench: $(LOGS)
+
+%.log: %
+	../bench.rb "$(PROCESSOR) $<" | tee $@
+
+test: $(patsubst %.log,%.test,$(LOGS))
+
+%.test: %
+	../bench.rb -t "$(PROCESSOR) $<"

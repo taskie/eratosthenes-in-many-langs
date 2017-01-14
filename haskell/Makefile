@@ -1,19 +1,29 @@
-COMPILER=ghc
-OPTIONS=-O
-BINARIES=prime prime_unsafe
+COMPILER := ghc
+OPTIONS := -O
+BINARIES := prime prime_unsafe
+LOGS := $(addsuffix .log, $(BINARIES))
+
+.PHONY: all clean cleanlog clobber bench test
 
 all: $(BINARIES)
 
 clean:
-	-rm prime.hi prime.o prime_unsafe.hi prime_unsafe.o
+	-rm $(addsuffix .hi, $(BINARIES)) $(addsuffix .o, $(BINARIES))
+cleanlog:
+	-\rm $(LOGS)
 
 clobber: clean
-	-rm $(BINARIES)
+	-\rm $(BINARIES)
 
-bench: $(BINARIES)
-	for binary in $(BINARIES) ; do \
-		../bench.rb ./$$binary | tee $$binary.log ; \
-	done
+bench: $(LOGS)
+
+%.log: %
+	../bench.rb "./$<" | tee $@
+
+test: $(patsubst %.log,%.test,$(LOGS))
+
+%.test: %
+	../bench.rb -t "./$<"
 
 prime: prime.hs
 	$(COMPILER) $(OPTIONS) $+ -o $@
