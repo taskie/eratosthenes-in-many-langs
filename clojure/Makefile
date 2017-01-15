@@ -15,12 +15,12 @@ clobber: clean
 
 bench: $(LOGS)
 
-%.log: %
+%.log: classes/%
 	../bench.rb "java -cp classes:/usr/share/clojure/clojure.jar Prime" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
-%.test: %
+%.test: classes/%
 	../bench.rb -t "java -cp classes:/usr/share/clojure/clojure.jar Prime"
 
 $(BINARIES): Prime.clj
