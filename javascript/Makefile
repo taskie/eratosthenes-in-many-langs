@@ -1,5 +1,5 @@
 PROCESSOR := node
-SCRIPTS := prime.js
+SCRIPTS := prime.js prime_uint8.js prime_uint8_reduce.js
 LOGS := $(addsuffix .log, $(SCRIPTS))
 
 .PHONY: all clean cleanlog clobber bench test
