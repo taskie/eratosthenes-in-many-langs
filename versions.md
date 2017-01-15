@@ -14,7 +14,7 @@
 * `clang++ --version | head -1`
     + clang version 3.9.1 (tags/RELEASE_391/final)
 
-## C#
+## C\#
 
 * `mono --version | head -1`
     + Mono JIT compiler version 4.6.1 (Stable 4.6.1.3/abb06f1 Mon Oct  3 07:51:42 UTC 2016)
@@ -65,7 +65,7 @@
 ## JavaScript
 
 * `node --version | head -1`
-    + v5.6.0
+    + v7.4.0
 
 ## Julia
 

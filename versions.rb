@@ -6,7 +6,7 @@ puts
 commands_for_lang = {
   'C' => ['gcc --version | head -1', 'clang --version | head -1'],
   'C++' => ['g++ --version | head -1', 'clang++ --version | head -1'],
-  'C#' => ['mono --version | head -1', 'mcs --version | head -1'],
+  'C\#' => ['mono --version | head -1', 'mcs --version | head -1'],
   'Clojure' => ['clj -e "(println (clojure-version))"'],
   'Common Lisp' => ['sbcl --version | head -1', 'clisp --version | head -1'],
   'D' => ['dmd --version | head -1', 'ldc --version | head -2'],
