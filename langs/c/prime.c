@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +28,13 @@ int countPrime(int n) {
 }
 
 int main(int argc, char* argv[]) {
-    int n = (argc >= 2) ? strtol(argv[1], NULL, 10) : 10000000;
+    int n = 10000000;
+    if (argc > 1) {
+        char *endptr;
+        n = strtol(argv[1], &endptr, 0);
+        if (n < 0 || *endptr != '\0' || errno) {
+            exit(1);
+        };
+    }
     printf("%d\n", countPrime(n));
 }

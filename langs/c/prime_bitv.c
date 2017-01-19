@@ -1,3 +1,5 @@
+#include <errno.h>
+#include <limits.h>
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -6,6 +8,7 @@
 #include <string.h>
 
 #ifdef BITV_64BIT
+
 #ifdef BITV_SSE4
 #include <nmmintrin.h>
 #define BITV_POPCNT _mm_popcnt_u64
@@ -24,7 +27,9 @@ inline int bitv_popcnt_u64(uint64_t bits)
 typedef uint64_t bitv_value_t;
 const size_t bitv_bits = 64;
 const bitv_value_t bitv_full_bit = 0xffffffff;
+
 #else // BITV_64BIT
+
 #ifdef BITV_SSE4
 #include <immintrin.h>
 #define BITV_POPCNT _mm_popcnt_u32
@@ -42,6 +47,7 @@ inline int bitv_popcnt_u32(uint32_t bits)
 typedef uint32_t bitv_value_t;
 const size_t bitv_bits = 32;
 const bitv_value_t bitv_full_bit = 0xffff;
+
 #endif // BITV_64BIT
 
 #define MY_MIN(a, b) ((a) < (b) ? a : b)
@@ -55,6 +61,7 @@ inline bitv bitv_create(size_t size) {
     bitv bv = { size, calloc((size + bitv_bits - 1) / bitv_bits, sizeof(bitv_value_t)) };
     return bv;
 }
+
 inline void bitv_destroy(bitv *bv) {
     free(bv->v);
     memset(bv, 0, sizeof(*bv));
@@ -63,9 +70,11 @@ inline void bitv_destroy(bitv *bv) {
 inline bool bitv_get(bitv *bv, size_t i) {
     return bv->v[i / bitv_bits] & ((bitv_value_t)1 << i % bitv_bits);
 }
+
 inline void bitv_on(bitv *bv, size_t i) {
     bv->v[i / bitv_bits] |= (bitv_value_t)1 << i % bitv_bits;
 }
+
 inline void bitv_off(bitv *bv, size_t i) {
     bv->v[i / bitv_bits] &= ~((bitv_value_t)1 << i % bitv_bits);
 }
@@ -79,6 +88,7 @@ inline void bitv_on_all(bitv *bv) {
         bitv_on(bv, offset + i);
     }
 }
+
 inline void bitv_off_all(bitv *bv) {
     memset(bv->v, 0, (bv->size + bitv_bits - 1) / bitv_bits * sizeof(bitv_value_t));
 }
@@ -113,6 +123,13 @@ int countPrime(int n) {
 }
 
 int main(int argc, char* argv[]) {
-    int n = (argc >= 2) ? strtol(argv[1], NULL, 10) : 10000000;
+    int n = 10000000;
+    if (argc > 1) {
+        char *endptr;
+        n = strtol(argv[1], &endptr, 0);
+        if (n < 0 || *endptr != '\0' || errno) {
+            exit(1);
+        };
+    }
     printf("%d\n", countPrime(n));
 }
