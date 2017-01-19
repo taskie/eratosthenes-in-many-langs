@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := g++
 COMPILER2 := clang++
 OPTIONS := -Wall -O3 -march=native -march=native -std=c++14
@@ -19,12 +21,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "./$<" | tee $@
+	$(BENCH) "./$<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "./$<"
+	$(BENCH) -t "./$<"
 
 prime: prime.cc
 	$(COMPILER) $(OPTIONS) $+ -o $@

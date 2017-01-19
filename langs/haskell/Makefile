@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := ghc
 OPTIONS := -O
 BINARIES := prime prime_unsafe
@@ -19,12 +21,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "./$<" | tee $@
+	$(BENCH) "./$<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "./$<"
+	$(BENCH) -t "./$<"
 
 prime: prime.hs
 	$(COMPILER) $(OPTIONS) $+ -o $@

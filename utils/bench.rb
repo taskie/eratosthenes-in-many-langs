@@ -3,6 +3,7 @@
 require 'benchmark'
 require 'json'
 require 'optparse'
+require 'pathname'
 
 repeat = 5
 wall_time = 5.0
@@ -16,6 +17,11 @@ opt.parse!(ARGV)
 
 exit 1 if $*.empty?
 command = $*.join(' ')
+
+pwd = Pathname.pwd
+project_dir = Pathname(__FILE__).dirname.parent.expand_path
+
+puts "# #{pwd.relative_path_from(project_dir).to_s}"
 puts "# " + command
 
 test_hash = nil

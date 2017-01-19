@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := dmd
 COMPILER2 := ldc
 OPTIONS := -O
@@ -20,12 +22,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "./$<" | tee $@
+	$(BENCH) "./$<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "./$<"
+	$(BENCH) -t "./$<"
 
 prime: prime.d
 	$(COMPILER) $(OPTIONS) $+ -of=$@

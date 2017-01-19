@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := gfortran
 OPTIONS := -Wall -O3 -march=native -march=native
 BINARIES := prime
@@ -18,12 +20,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "./$<" | tee $@
+	$(BENCH) "./$<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "./$<"
+	$(BENCH) -t "./$<"
 
 prime: prime.f90
 	$(COMPILER) $(OPTIONS) $+ -o $@

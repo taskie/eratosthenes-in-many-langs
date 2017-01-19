@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := ocamlopt
 OPTIONS :=
 BINARIES := prime prime_unsafe
@@ -20,12 +22,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "./$<" | tee $@
+	$(BENCH) "./$<" | tee $@
 
 test: $(addsuffix .test, $(BINARIES))
 
 %.test: %
-	../bench.rb -t "./$<"
+	$(BENCH) -t "./$<"
 
 prime: prime.ml
 	$(COMPILER) $(OPTIONS) $+ -o $@

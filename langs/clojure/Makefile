@@ -1,3 +1,5 @@
+include ../header.mk
+
 BINARIES := classes/Prime.class
 LOGS := $(addsuffix .log, $(notdir $(BINARIES)))
 
@@ -16,12 +18,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: classes/%
-	../bench.rb "java -cp classes:/usr/share/clojure/clojure.jar Prime" | tee $@
+	$(BENCH) "java -cp classes:/usr/share/clojure/clojure.jar Prime" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: classes/%
-	../bench.rb -t "java -cp classes:/usr/share/clojure/clojure.jar Prime"
+	$(BENCH) -t "java -cp classes:/usr/share/clojure/clojure.jar Prime"
 
 $(BINARIES): Prime.clj
 	mkdir -p classes

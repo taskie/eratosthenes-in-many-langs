@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := mcs
 OPTIONS := -optimize+
 BINARIES := Prime.exe PrimeLinq.exe
@@ -18,12 +20,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "mono $<" | tee $@
+	$(BENCH) "mono $<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "mono $<"
+	$(BENCH) -t "mono $<"
 
 %.exe: %.cs
 	$(COMPILER) $(OPTIONS) $<

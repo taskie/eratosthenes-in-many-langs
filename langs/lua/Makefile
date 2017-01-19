@@ -1,3 +1,5 @@
+include ../header.mk
+
 PROCESSOR := lua
 PROCESSOR2 := luajit
 SCRIPTS := prime.lua
@@ -17,15 +19,15 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "$(PROCESSOR) $<" | tee $@
+	$(BENCH) "$(PROCESSOR) $<" | tee $@
 
 %.jit.log: %
-	../bench.rb "$(PROCESSOR2) $<" | tee $@
+	$(BENCH) "$(PROCESSOR2) $<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "$(PROCESSOR) $<"
+	$(BENCH) -t "$(PROCESSOR) $<"
 
 %.jit.test: %
-	../bench.rb -t "$(PROCESSOR2) $<"
+	$(BENCH) -t "$(PROCESSOR2) $<"

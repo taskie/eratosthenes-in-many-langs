@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := scalac
 OPTIONS := -opt:_
 BINARIES := Prime.class
@@ -19,12 +21,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "scala $(basename $<)" | tee $@
+	$(BENCH) "scala $(basename $<)" | tee $@
 
 test: $(addsuffix .test, $(BINARIES))
 
 %.test: %
-	../bench.rb -t "scala $(basename $<)"
+	$(BENCH) -t "scala $(basename $<)"
 
 %.class: %.scala
 	$(COMPILER) $(OPTIONS) $+

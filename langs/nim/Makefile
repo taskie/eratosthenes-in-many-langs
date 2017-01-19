@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := nim c
 OPTIONS := --opt=speed
 BINARIES := prime
@@ -19,12 +21,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "./$<" | tee $@
+	$(BENCH) "./$<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "./$<"
+	$(BENCH) -t "./$<"
 
 prime: prime.nim
 	$(COMPILER) $(OPTIONS) $+

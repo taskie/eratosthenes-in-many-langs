@@ -1,3 +1,5 @@
+include ../header.mk
+
 PROCESSOR := node
 SCRIPTS := prime.js prime_uint8.js prime_uint8_reduce.js
 LOGS := $(addsuffix .log, $(SCRIPTS))
@@ -16,9 +18,9 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "$(PROCESSOR) $<" | tee $@
+	$(BENCH) "$(PROCESSOR) $<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "$(PROCESSOR) $<"
+	$(BENCH) -t "$(PROCESSOR) $<"

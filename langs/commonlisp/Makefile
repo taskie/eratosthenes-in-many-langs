@@ -1,3 +1,5 @@
+include ../header.mk
+
 PROCESSOR := sbcl --script
 PROCESSOR2 := clisp
 COMPILER := $(PROCESSOR) compile.lisp
@@ -21,18 +23,18 @@ clobber: clean
 bench: $(LOGS)
 
 %.fasl.log: %.fasl
-	../bench.rb "$(PROCESSOR) $<" | tee $@
+	$(BENCH) "$(PROCESSOR) $<" | tee $@
 
 %.fas.log: %.fas
-	../bench.rb "$(PROCESSOR2) $<" | tee $@
+	$(BENCH) "$(PROCESSOR2) $<" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.fasl.test: %.fasl
-	../bench.rb -t "$(PROCESSOR) $<"
+	$(BENCH) -t "$(PROCESSOR) $<"
 
 %.fas.test: %.fas
-	../bench.rb -t "$(PROCESSOR2) $<"
+	$(BENCH) -t "$(PROCESSOR2) $<"
 
 %.fasl: %.lisp
 	$(COMPILER) $<

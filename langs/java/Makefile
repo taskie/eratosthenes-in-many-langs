@@ -1,3 +1,5 @@
+include ../header.mk
+
 COMPILER := javac
 OPTIONS := -O
 BINARIES := Prime.class
@@ -18,12 +20,12 @@ clobber: clean
 bench: $(LOGS)
 
 %.log: %
-	../bench.rb "java $(basename $<)" | tee $@
+	$(BENCH) "java $(basename $<)" | tee $@
 
 test: $(patsubst %.log,%.test,$(LOGS))
 
 %.test: %
-	../bench.rb -t "java $(basename $<)"
+	$(BENCH) -t "java $(basename $<)"
 
 %.class: %.java
 	$(COMPILER) $(OPTIONS) $+
