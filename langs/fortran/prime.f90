@@ -9,10 +9,14 @@ program prime
      call get_command_argument(1, length = length)
      allocate (character(length) :: arg)
      call get_command_argument(1, arg)
-     read (arg, *) n
+     read (arg, *, err=100) n
+     if ( n < 0 ) goto 100
      deallocate (arg)
   end if
   print '(i0)', count_prime(n)
+  stop
+
+100 stop 1
 
 contains
   function sieve(size)

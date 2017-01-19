@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     int n = 10000000;
     if (argc > 1) {
         char *endptr;
-        n = strtol(argv[1], &endptr, 0);
+        n = strtol(argv[1], &endptr, 10);
         if (n < 0 || *endptr != '\0' || errno) {
             exit(1);
         };

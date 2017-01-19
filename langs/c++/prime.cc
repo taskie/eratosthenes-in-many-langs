@@ -1,9 +1,11 @@
 #include <algorithm>
 #include <iostream>
 #include <iterator>
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include <cmath>
+#include <cstdlib>
 
 std::vector<bool> sieve(int size) {
     std::vector<bool> sieveArray(size, true);
@@ -24,6 +26,19 @@ int countPrime(int n) {
 }
 
 int main(int argc, char* argv[]) {
-    int n = (argc >= 2) ? std::stoi(argv[1]) : 10000000;
+    int n = 10000000;
+    if (argc > 1) {
+        std::string arg = argv[1];
+        std::size_t endidx;
+        try {
+            n = std::stoi(arg, &endidx, 0);
+            if (std::next(arg.begin(), endidx) != arg.end()) {
+                throw std::invalid_argument("");
+            }
+            if (n < 0) { throw std::out_of_range(""); }
+        } catch (...) {
+            std::exit(1);
+        }
+    }
     std::cout << countPrime(n) << std::endl;
 }

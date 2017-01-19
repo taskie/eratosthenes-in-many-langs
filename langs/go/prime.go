@@ -37,9 +37,10 @@ func main() {
 	n := 10000000
 	if len(os.Args) >= 2 {
 		i, err := strconv.Atoi(os.Args[1])
-		if err == nil {
-			n = i
+		if i < 0 || err != nil {
+			os.Exit(1)
 		}
+		n = i
 	}
 	fmt.Println(countPrime(n))
 }
