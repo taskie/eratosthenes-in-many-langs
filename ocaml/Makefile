@@ -8,14 +8,14 @@ LOGS := $(addsuffix .log, $(BINARIES))
 all: $(BINARIES)
 
 clean:
-	-\rm $(addsuffix .cmi,$(BINARIES)) $(addsuffix .cmx,$(BINARIES))
-	-\rm $(addsuffix .o,$(BINARIES))
+	rm -f $(addsuffix .cmi,$(BINARIES)) $(addsuffix .cmx,$(BINARIES))
+	rm -f $(addsuffix .o,$(BINARIES))
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
-	-\rm $(BINARIES)
+	rm -f $(BINARIES)
 
 bench: $(LOGS)
 

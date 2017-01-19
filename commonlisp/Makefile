@@ -10,13 +10,13 @@ LOGS := $(addsuffix .log, $(BINARIES))
 all: $(BINARIES)
 
 clean:
-	-\rm $(patsubst %.fas,%.lib,$(filter %.fas,$(BINARIES)))
+	rm -f $(patsubst %.fas,%.lib,$(filter %.fas,$(BINARIES)))
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
-	-\rm $(BINARIES)
+	rm -f $(BINARIES)
 
 bench: $(LOGS)
 

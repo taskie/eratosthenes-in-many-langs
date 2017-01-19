@@ -12,10 +12,10 @@ all: $(BINARIES)
 clean:
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
-	-\rm $(BINARIES)
+	rm -f $(BINARIES)
 
 bench: $(LOGS)
 

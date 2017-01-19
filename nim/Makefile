@@ -8,13 +8,13 @@ LOGS := $(addsuffix .log, $(BINARIES))
 all: $(BINARIES)
 
 clean:
-	-\rm -rf nimcache/
+	rm -f -rf nimcache/
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
-	-\rm $(BINARIES)
+	rm -f $(BINARIES)
 
 bench: $(LOGS)
 

@@ -8,13 +8,13 @@ LOGS := $(addsuffix .log, $(BINARIES))
 all: $(BINARIES)
 
 clean:
-	-\rm $(patsubst %.class,%$$.class,$(BINARIES))
+	rm -f $(patsubst %.class,%$$.class,$(BINARIES))
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
-	-\rm $(BINARIES)
+	rm -f $(BINARIES)
 
 bench: $(LOGS)
 

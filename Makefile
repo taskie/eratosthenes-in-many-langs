@@ -2,12 +2,10 @@ DIRECTORIES := c c\# c++ clojure commonlisp d fortran go haskell java \
 	javascript julia lua nim ocaml perl php python ruby rust scala \
 	scheme squirrel
 
-.PHONY: all clean cleanlog clobber test $(DIRECTORIES)
+.PHONY: all clean cleanlog clobber test
 
-all: $(DIRECTORIES)
-
-$(DIRECTORIES):
-	$(MAKE) -C $@
+all:
+	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) all;)
 
 clean:
 	$(foreach DIR,$(DIRECTORIES),$(MAKE) -C $(DIR) clean;)

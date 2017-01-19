@@ -8,10 +8,10 @@ all: $(BINARIES)
 clean:
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
-	-\rm -rf classes/
+	rm -f -rf classes/
 
 bench: $(LOGS)
 

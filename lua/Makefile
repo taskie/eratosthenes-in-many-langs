@@ -10,7 +10,7 @@ all:
 clean:
 
 cleanlog:
-	-\rm $(LOGS)
+	rm -f $(LOGS)
 
 clobber: clean
 
