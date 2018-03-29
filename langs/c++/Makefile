@@ -2,7 +2,7 @@ include ../header.mk
 
 COMPILER := g++
 COMPILER2 := clang++
-OPTIONS := -Wall -O3 -march=native -march=native -std=c++14
+OPTIONS := -Wall -O3 -march=native -march=native -std=c++17
 BINARIES := prime prime_char prime_clang prime_char_clang
 LOGS := $(addsuffix .log, $(BINARIES))
 
