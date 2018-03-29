@@ -1,4 +1,4 @@
-DIRECTORIES := c c\# c++ clojure commonlisp d fortran go groovy haskell java \
+DIRECTORIES := bash c c\# c++ clojure commonlisp d fortran go groovy haskell java \
 	javascript julia kotlin lua nim ocaml perl php python ruby rust scala \
 	scheme squirrel
 
