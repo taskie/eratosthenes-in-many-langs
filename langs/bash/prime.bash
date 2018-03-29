@@ -29,7 +29,7 @@ sieve () {
 
 count_prime () {
     local -i n=$1
-    sieve $((n + 1)) | grep 1 | wc -l
+    sieve $((n + 1)) | grep -F 1 | wc -l
 
 }
 

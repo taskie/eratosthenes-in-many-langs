@@ -1,7 +1,7 @@
 include ../header.mk
 
 PROCESSOR := bash
-SCRIPTS := prime.bash
+SCRIPTS := prime.bash prime2.bash
 LOGS := $(addsuffix .log, $(SCRIPTS))
 
 .PHONY: all clean cleanlog clobber bench test
