@@ -1,4 +1,3 @@
-#![feature(step_by)]
 use std::cmp;
 use std::env;
 
@@ -11,12 +10,14 @@ fn sieve(size: usize) -> Vec<bool> {
     let root: usize = ((size as f64).sqrt() as usize) + 1;
     for i in 2..root {
         if sieve_array[i] {
-            for j in ((i * i)..size).step_by(i) {
+            let mut j = i * i;
+            while j < size {
                 sieve_array[j] = false;
+                j += i
             }
         }
     }
-    
+
     return sieve_array;
 }
 
