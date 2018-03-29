@@ -146,3 +146,8 @@
 * `squirrel -version | head -1`
     + Squirrel 3.1 stable Copyright (C) 2003-2016 Alberto Demichelis (64 bits)
 
+## Zsh
+
+* `zsh --version | head -1`
+    + zsh 5.4.2 (x86_64-unknown-linux-gnu)
+

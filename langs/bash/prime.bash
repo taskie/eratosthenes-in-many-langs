@@ -20,7 +20,6 @@ sieve () {
         done
     done
 
-    local -i count=0
     for (( i=0; i < size; ++i ))
     do
         echo ${sieve_array[i]}
