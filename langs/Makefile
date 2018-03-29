@@ -1,6 +1,4 @@
-DIRECTORIES := bash c c\# c++ clojure commonlisp d fortran go groovy haskell java \
-	javascript julia kotlin lua nim ocaml perl php python ruby rust scala \
-	scheme squirrel
+DIRECTORIES := $(wildcard */)
 
 .PHONY: all clean cleanlog clobber test
 

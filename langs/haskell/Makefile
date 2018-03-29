@@ -1,6 +1,6 @@
 include ../header.mk
 
-COMPILER := ghc
+COMPILER := stack ghc --
 OPTIONS := -O
 BINARIES := prime prime_unsafe
 LOGS := $(addsuffix .log, $(BINARIES))

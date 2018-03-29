@@ -1,7 +1,7 @@
 include ../header.mk
 
 COMPILER := kotlinc
-OPTIONS := -O
+OPTIONS :=
 BINARIES := PrimeKt.class
 LOGS := $(addsuffix .log, $(BINARIES))
 
@@ -15,6 +15,7 @@ cleanlog:
 	rm -f $(LOGS)
 
 clobber: clean
+	rm -rf META-INF/
 	rm -f $(BINARIES)
 
 bench: $(LOGS)
@@ -27,5 +28,5 @@ test: $(patsubst %.log,%.test,$(LOGS))
 %.test: %
 	$(BENCH) -t "kotlin $(basename $<)"
 
-%.class: %.java
+%Kt.class: %.kt
 	$(COMPILER) $(OPTIONS) $+

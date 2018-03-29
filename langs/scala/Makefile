@@ -1,7 +1,7 @@
 include ../header.mk
 
 COMPILER := scalac
-OPTIONS := -opt:_
+OPTIONS := -opt:inline
 BINARIES := Prime.class
 LOGS := $(addsuffix .log, $(BINARIES))
 
