@@ -30,6 +30,7 @@ commands_for_lang = {
   'Scala' => ['scala -version 2>&1 | tail -1', 'scalac -version 2>&1 | tail -1'],
   'Scheme' => ['gosh -V | head -1'],
   'Squirrel' => ['squirrel -version | head -1'],
+  'Zig' => ['zig version | head -1'],
   'Zsh' => ['zsh --version | head -1'],
 }
 
