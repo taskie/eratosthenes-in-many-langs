@@ -2,23 +2,22 @@ const std = @import("std");
 
 var a: std.mem.Allocator = undefined;
 
-fn sieve(size: usize) ![]bool {
-    const sieve_array: []bool = try a.alloc(bool, size);
+fn sieve(size: usize) !std.DynamicBitSet {
+    var sieve_array = try std.DynamicBitSet.initFull(a, size);
     {
-        var i: usize = 2;
-        while (i < size) : (i += 1) {
-            sieve_array[i] = true;
+        var i: usize = 0;
+        while (i < @minimum(2, size)) : (i += 1) {
+            sieve_array.unset(i);
         }
     }
 
     const root = @floatToInt(usize, @sqrt(@intToFloat(f64, size))) + 1;
     var i: usize = 2;
     while (i < root) : (i += 1) {
-        if (sieve_array[i]) {
+        if (sieve_array.isSet(i)) {
             var j = i * i;
-            while (j < size) {
-                sieve_array[j] = false;
-                j += i;
+            while (j < size) : (j += i) {
+                sieve_array.unset(j);
             }
         }
     }
@@ -27,13 +26,7 @@ fn sieve(size: usize) ![]bool {
 }
 
 fn count_prime(n: usize) !usize {
-    var count: usize = 0;
-    for (try sieve(n + 1)) |b| {
-        if (b) {
-            count += 1;
-        }
-    }
-    return count;
+    return (try sieve(n + 1)).count();
 }
 
 pub fn main() !void {
