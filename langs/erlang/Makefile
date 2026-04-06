@@ -1,7 +1,7 @@
 include ../header.mk
 
 COMPILER := erlc
-BINARIES := prime
+BINARIES := prime prime_atomics
 LOGS := $(addsuffix .log, $(BINARIES))
 
 .PHONY: all clean cleanlog clobber bench test
@@ -9,7 +9,7 @@ LOGS := $(addsuffix .log, $(BINARIES))
 all: $(BINARIES)
 
 clean:
-	rm -f prime.beam
+	rm -f prime.beam prime_atomics.beam
 
 cleanlog:
 	rm -f $(LOGS)
@@ -32,4 +32,11 @@ prime: prime.erl
 	echo '#!/bin/sh' > $@
 	echo 'DIR=$$(dirname "$$0")' >> $@
 	echo 'erl -noshell -pa "$$DIR" -run prime main -- "$$@"' >> $@
+	chmod +x $@
+
+prime_atomics: prime_atomics.erl
+	$(COMPILER) $<
+	echo '#!/bin/sh' > $@
+	echo 'DIR=$$(dirname "$$0")' >> $@
+	echo 'erl -noshell -pa "$$DIR" -run prime_atomics main -- "$$@"' >> $@
 	chmod +x $@
